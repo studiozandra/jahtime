@@ -1,0 +1,42 @@
+<!doctype html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+
+  <title>Z's Age Calculator Flask App</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<h1>JahTime Age Calculator</h1>
+
+<body>
+
+  <div class="main">
+    <p>Let's see how old you are measured in JahTime. JahTime's calculation is based on <a href="https://www.jw.org/en/publications/bible/study-bible/books/2-peter/3/#v61003008">2Peter 3:8</a> - "However, do not let this escape your notice, beloved ones, that one day is with Jehovah as a thousand years and a thousand years as one day." (NWT) (See also <a href="https://www.jw.org/en/publications/bible/study-bible/books/psalms/90/#v19090004">Psalms 90:4</a>)</p>
+
+    <form class="pure-form" method="POST" action="/">
+    What should we call you?: <br>
+    <input type="text" name="userName"><br>
+    Enter your age: <br>
+    <input type="number" name="userAge"><br>
+    <button type="submit" class="pure-button pure-button-primary" value="Submit">Submit</button>
+    </form>
+  </div>
+
+  <br>
+
+  <div class="main">
+    {% if jahAge %}
+      <p>Hey <b> {{ userName }} </b>, you are only <b> {{ jahAge }} </b>old in Jah's eyes.</p>
+    {% endif %}
+  </div>
+  <br>
+  <div class="main">
+  Back to <a href="https://dhrp.net">dhrp.net</a> or <a href="https://studiozandra.com">studiozandra.com</a>
+  </div>
+
+</body>
