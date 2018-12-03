@@ -1,2 +1,2 @@
 # jahtime
-simple God-age calculator
+simple God-age calculator in Flask
