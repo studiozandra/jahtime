@@ -1,7 +1,9 @@
 
 #!python 3.6
 
-from flask import Flask, request, render_template
+from flask import Flask, redirect, render_template
+from flask import request
+import web_parse
 
 app = Flask(__name__)
 
@@ -21,7 +23,28 @@ def jahTime():
                            userAge=userAge,
                            jahAge=jahAge)
 
+@app.route('/shoppinglist', methods=['GET', 'POST'])
+def shoppingList():
+    url = ''
+    shopping_list = ''
+    
+    if request.method == 'POST' and 'url' in request.form:
+        url = request.form.get('url')
+        shopping_list = web_parse.crawl_GPT(url)
+        print("line 33 reached")
+        return redirect('/shoppinglist')
+        
 
+    return render_template("shopping-list.html",
+                           url=url,
+                           shopping_list=shopping_list,
+                           )
+
+
+@app.route('/test', methods=['GET', 'POST'])
+def testing():
+    
+    return "hi mom"
 
 if __name__ == '__main__':
-    app.run()
+    app.run(use_debugger=False, use_reloader=False, passthrough_errors=True)

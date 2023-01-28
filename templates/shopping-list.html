@@ -1,0 +1,48 @@
+<!doctype html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  </meta>
+
+  <title>Z's Shopping List Flask App</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+    integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<div id="header">
+  <h1>Shopping List</h1>
+  Generate a shopping list from a recipe page.
+</div>
+
+<body>
+
+  <div class="main">
+
+    <p>this app uses ChatGPT to generate your ingredients shopping list, so beware -- there may be errors!!! <a
+        href="https://openai.com/blog/chatgpt/">see Limitations</a>)</p>
+
+    <form class="pure-form" method="POST" action="/">
+      What is the URL of the recipe? (paste the link): <br>
+      <input type="text" name="url"><br>
+
+      <button type="submit" class="pure-button pure-button-primary" value="Submit">Submit</button>
+    </form>
+
+    <div class="result">
+      {% if url %}
+      <p>Here is your shopping list for <b> {{ url }} </b>: <b> {{ shopping_list }} </b> .</p>
+      {% endif %}
+    </div>
+
+  </div>
+
+
+  <div class="footer">
+    Back to <a href="https://studiozandra.com">studiozandra.com</a>
+  </div>
+
+</body>
