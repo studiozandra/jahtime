@@ -25,16 +25,19 @@
     <p>this app uses ChatGPT to generate your ingredients shopping list, so beware -- there may be errors!!! <a
         href="https://openai.com/blog/chatgpt/">see Limitations</a>)</p>
 
-    <form class="pure-form" method="POST" action="/">
+    <form class="pure-form" method="POST" action="/shoppinglist">
       What is the URL of the recipe? (paste the link): <br>
       <input type="text" name="url"><br>
 
       <button type="submit" class="pure-button pure-button-primary" value="Submit">Submit</button>
     </form>
 
+    <br>
+    <br>
+
     <div class="result">
-      {% if url %}
-      <p>Here is your shopping list for <b> {{ url }} </b>: <b> {{ shopping_list }} </b> .</p>
+      {% if shopping_list %}
+      <p>Here is your shopping list: <b> {{ shopping_list }} </b> </p>
       {% endif %}
     </div>
 
