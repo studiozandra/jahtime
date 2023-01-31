@@ -2,7 +2,7 @@
 #!python 3.6
 
 from flask import render_template, redirect
-from flask import Flask, redirect, render_template
+from flask import Flask
 from flask import request
 import web_parse
 
