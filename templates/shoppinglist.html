@@ -11,6 +11,11 @@
 
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <style>
+    input[type=checkbox]:checked+label.strikethrough {
+      text-decoration: line-through;
+    }
+  </style>
 
 </head>
 
@@ -23,8 +28,22 @@
 
   <div class="main">
 
-    <p>this app uses ChatGPT to generate your ingredients shopping list, so beware -- there may be errors!!! <a
-        href="https://openai.com/blog/chatgpt/">see Limitations</a>)</p>
+    <p>this app uses OpenAI to generate your ingredients shopping list, so beware -- there may be errors!!! <a
+        href="https://openai.com/blog/chatgpt/">(see Limitations</a>)
+      <br>
+      Test URL: <a href="https://www.japanesecooking101.com/nikujaga/">https://www.japanesecooking101.com/nikujaga/</a>
+      Test URL 2: <a
+        href="https://iriediva.com/iriedivas-jamaican-jerk-chicken-alfredo/">https://iriediva.com/iriedivas-jamaican-jerk-chicken-alfredo/</a>
+      <br>
+      If the page content is too long, you'll get an error. You can shorten the page content first if you like, using <a
+        href="https://smmry.com/">https://smmry.com/</a>.
+      For example: https://keytomylime.com/chili-con-carne-recipe/ --->
+      https://smmry.com/https://keytomylime.com/chili-con-carne-recipe/#&SM_LENGTH=38
+    </p>
+
+    {% if error_message %}
+    <h2 style="color:red;">Error: {{ error_message }}</h2>
+    {% endif %}
 
     <form class="pure-form" method="POST" action="/shoppinglist">
       What is the URL of the recipe? (paste the link): <br>
@@ -38,11 +57,14 @@
 
     <div class="result">
       {% if shopping_list %}
+
       <p>Here is your shopping list: </p>
       <p>
-      <ul style="list-style-type: circle;">
-        {% for item in shopping_list %}
-        <li>{{ item }}</li>
+      <ul style="display: inline-block; text-align: left; list-style-type: none;">
+        {% for item in shopping_list if item != "" %}
+        <li><input type="checkbox" id="check_{{ loop.index }}">
+          <label for="check_{{ loop.index }}" class="strikethrough">{{ item }}</label>
+        </li>
         {% endfor %}
       </ul>
       </p>
@@ -55,5 +77,6 @@
   <div class="footer">
     Back to <a href="https://studiozandra.com">studiozandra.com</a>
   </div>
+
 
 </body>

@@ -30,7 +30,7 @@ def jahTime():
 @app.route('/shoppinglist', methods=['GET', 'POST'])
 def shoppingList():
     url = 'empty'
-    shopping_list = 'empty'
+    shopping_list = ''
     error = None
 
     if request.method == 'POST' and ('url' in request.form):
@@ -46,4 +46,4 @@ def shoppingList():
 
 
 if __name__ == '__main__':
-    app.run(use_debugger=False, use_reloader=False, passthrough_errors=True)
+    app.run(use_debugger=True, use_reloader=True, passthrough_errors=True)
