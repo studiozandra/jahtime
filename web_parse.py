@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 # Set your OpenAI API key
 openai.api_key = secret.key
 
+
 def getUrl(url):
     return url
 
@@ -19,6 +20,8 @@ headers = {
     'Upgrade-Insecure-Requests': '1',
     'TE': 'Trailers',
 }
+
+
 def crawl_GPT(url):
     # Send a GET request to the web page and retrieve the HTML content
     try:
@@ -27,25 +30,27 @@ def crawl_GPT(url):
         print("here's the url " + url)
         response = requests.get(url, headers=headers)
         if response.status_code != 200:
-            raise Exception("Error retrieving web page: status code {}".format(response.status_code))
+            raise Exception(
+                "Error retrieving web page: status code {}".format(response.status_code))
         html_content = response.text
-    except Exception as e:
-        print("Error retrieving web page:", e)
-        exit()
+    except Exception as error:
+        print("Error retrieving web page 1:", error)
+        return error
 
     # Use the BeautifulSoup library to parse the HTML and extract the relevant text
     try:
         soup = BeautifulSoup(html_content, 'html.parser')
         recipie_text = soup.get_text()
-    except Exception as e:
-        print("Error parsing HTML:", e)
-        exit()
+    except Exception as error:
+        print("Error parsing HTML 2:", error)
+        return error
 
     # Use the openai.Completion.create() method to send your recipie text to GPT-3 and receive the analysis
     try:
         response = openai.Completion.create(
             engine="text-davinci-002",
-            prompt= "Based on this recipe, " + recipie_text + " create a shopping list of ingredients.",
+            prompt="Based on this recipe, " + recipie_text +
+            " create a shopping list of ingredients.",
             max_tokens=1024,
             temperature=0.5
         )
@@ -53,11 +58,12 @@ def crawl_GPT(url):
         if "text" in response["choices"][0]:
             # Extract the text field from the response
             text = response["choices"][0]["text"]
-            print(text)
+            print(text, "line 61 should be text string 3")
             return text
         else:
-            print("Error: response does not have a 'text' field")
-            return "error error ha ha"
-    except Exception as e:
-        print("Error analyzing web page:", e)
-        exit()
+            error = "Error: response does not have a 'text' field 4"
+            print(error)
+            return error
+    except Exception as error:
+        print("Error analyzing web page 5:", error)
+        return error
