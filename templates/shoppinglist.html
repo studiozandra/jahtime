@@ -38,7 +38,14 @@
 
     <div class="result">
       {% if shopping_list %}
-      <p>Here is your shopping list: <b> {{ shopping_list }} </b> </p>
+      <p>Here is your shopping list: </p>
+      <p>
+      <ul style="list-style-type: circle;">
+        {% for item in shopping_list %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+      </p>
       {% endif %}
     </div>
 

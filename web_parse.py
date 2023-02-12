@@ -50,7 +50,7 @@ def crawl_GPT(url):
         response = openai.Completion.create(
             engine="text-davinci-002",
             prompt="Based on this recipe, " + recipie_text +
-            " create a shopping list of ingredients.",
+            " create a shopping list of ingredients as an iterable array/list.",
             max_tokens=1024,
             temperature=0.5
         )
