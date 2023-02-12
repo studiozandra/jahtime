@@ -31,11 +31,16 @@ def jahTime():
 def shoppingList():
     url = 'placeholder'
     shopping_list = 'placeholder'
+    error = None
 
     if request.method == 'POST' and ('url' in request.form):
         url = str(request.form.get('url'))
-        shopping_list = str(web_parse.crawl_GPT(url))
-    return render_template('shoppinglist.html', shopping_list=shopping_list)
+        try:
+            shopping_list = str(web_parse.crawl_GPT(url))
+        except Exception as e:
+            error = str(e)
+
+    return render_template('shoppinglist.html', shopping_list=shopping_list, error=error)
 
 
 if __name__ == '__main__':
