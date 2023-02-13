@@ -29,14 +29,16 @@ def jahTime():
 
 @app.route('/shoppinglist', methods=['GET', 'POST'])
 def shoppingList():
-    url = 'placeholder'
-    shopping_list = 'placeholder'
+    url = 'empty'
+    shopping_list = ''
     error = None
 
     if request.method == 'POST' and ('url' in request.form):
         url = str(request.form.get('url'))
         try:
-            shopping_list = str(web_parse.crawl_GPT(url))
+            shopping_list = web_parse.crawl_GPT(url)
+            shopping_list = shopping_list.split("\n")
+
         except Exception as e:
             error = str(e)
 
@@ -44,4 +46,4 @@ def shoppingList():
 
 
 if __name__ == '__main__':
-    app.run(use_debugger=False, use_reloader=False, passthrough_errors=True)
+    app.run(use_debugger=True, use_reloader=True, passthrough_errors=True)
